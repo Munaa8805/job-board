@@ -11,12 +11,23 @@ class WorkController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //
         // $works = Work::all();
+        // $works = Work::orderBy('created_at', 'desc')->get();
+        $works = Work::query();
+        $works->when(request('search'), function ($query) {
+            $query->where(function ($query) {
+                $query->where('title', 'like', '%' . request('search') . '%')->orWhere('description', 'like', '%' . request('search') . '%');
+            });
+        })->when(request("min_salary"), function ($query) {
+            $query->where('salary', '>=', request("min_salary"));
+        })->when(request("max_salary"), function ($query) {
+            $query->where('salary', '<=', request("max_salary"));
+        });
         return view('work.index', [
-            'works' => Work::all(),
+            'works' => $works->get(),
             "title" => "Works",
         ]);
     }
