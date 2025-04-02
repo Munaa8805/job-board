@@ -31,14 +31,38 @@
                             form-ref="filters" />
                     </div>
                 </div>
-                {{-- <div>
-                    <div class="mb-1 font-semibold">Experience</div>
-
-
+                <div class="mb-1 font-semibold">
+                    <label for="experience" class="mb-1 flex items-center">
+                        <input type="radio" name="experience" value="" checked @checked(!request('experience')) />
+                        <span class="ml-2">
+                            All
+                        </span>
+                    </label>
+                    <label for="experience" class="mb-1 flex items-center">
+                        <input type="radio" name="experience" value="entry" @checked('entry'===request('experience')) />
+                        <span class="ml-2">
+                            Entry Level
+                        </span>
+                    </label>
+                    <label for="experience" class="mb-1 flex items-center">
+                        <input type="radio" name="experience" value="intermediate"
+                            @checked('intermediate'===request('experience')) />
+                        <span class="ml-2">
+                            Intermediate Level
+                        </span>
+                    </label>
+                    <label for="experience" class="mb-1 flex items-center">
+                        <input type="radio" name="experience" value="senior"
+                            @checked('senior'===request('experience')) />
+                        <span class="ml-2">
+                            Senior Level
+                        </span>
+                    </label>
                 </div>
                 <div>
                     <div class="mb-1 font-semibold">Category</div>
-                </div> --}}
+                    <x-radio-group name="category" :options="\App\Models\Work::$categories" />
+                </div>
             </div>
 
             <button type="submit" class='rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-center text-sm
